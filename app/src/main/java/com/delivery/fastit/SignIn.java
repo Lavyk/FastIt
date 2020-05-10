@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -30,8 +31,10 @@ public class SignIn extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_in);
 
-        edtPassword = (MaterialEditText) findViewById(R.id.edtPassword);
-        edtPhone = (MaterialEditText) findViewById(R.id.edtPhone);
+        //edtPassword = (MaterialEditText) findViewById(R.id.edtPassword);
+        edtPassword = findViewById(R.id.edtPassword);
+        //edtPhone = (MaterialEditText) findViewById(R.id.edtPhone);
+        edtPhone = findViewById(R.id.edtPhone);
         btnSignIn = (Button) findViewById(R.id.btnSignIn);
 
         //Init Firebase
@@ -58,7 +61,10 @@ public class SignIn extends AppCompatActivity {
                             //Get user information
                             mDialog.dismiss();
                             User user = dataSnapshot.child(edtPhone.getText().toString()).getValue(User.class);
+                            System.out.println("Senha do texto: " + dataSnapshot.child(edtPhone.getText().toString()).getValue().toString());
+                            System.out.println("Senha do user: " + user.getName());
                             assert user != null;
+
                             if (user.getPassword().equals(edtPassword.getText().toString())) {
                                 {
                                     Intent homeIntent = new Intent(SignIn.this, Home.class);
